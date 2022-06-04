@@ -1,25 +1,13 @@
 import type { LinksFunction } from "@remix-run/node";
 import { Links, LiveReload, Outlet, Scripts } from "@remix-run/react";
 
-import globalStylesUrl from "./styles/global.css";
-import globalMediumStylesUrl from "./styles/global-medium.css";
-import globalLargeStylesUrl from "./styles/global-large.css";
+import globalStylesUrl from "bootstrap/dist/css/bootstrap.min.css";
 
 export const links: LinksFunction = () => {
   return [
     {
       rel: "stylesheet",
       href: globalStylesUrl,
-    },
-    {
-      rel: "stylesheet",
-      href: globalMediumStylesUrl,
-      media: "print, (min-width: 640px)",
-    },
-    {
-      rel: "stylesheet",
-      href: globalLargeStylesUrl,
-      media: "screen and (min-width: 1024px)",
     },
   ];
 };
@@ -33,7 +21,6 @@ export default function App() {
         <Links />
       </head>
       <body>
-        Hello world
         <Outlet />
         <Scripts />
         <LiveReload />
