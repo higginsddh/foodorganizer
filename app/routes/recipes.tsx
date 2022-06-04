@@ -1,35 +1,24 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import { Navbar, NavbarBrand } from "reactstrap";
-import ReceipeList from "~/components/recipeList";
 import type { SavedRecipe } from "~/models/receipe";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@remix-run/react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
-
-// import AddReceipeButton from "~/components/AddReceipeButton";
-// import ReceipeList from "~/components/RecipeList";
+import { db } from "~/utils/db.server";
 
 type LoaderData = { recipes: Array<SavedRecipe> };
 
 export const loader: LoaderFunction = async () => {
-  // const count = await db.joke.count();
-  // const randomRowNumber = Math.floor(Math.random() * count);
-  // const [randomJoke] = await db.joke.findMany({
-  //   take: 1,
-  //   skip: randomRowNumber,
-  // });
-  const data: LoaderData = {
-    recipes: [
+  const recipes = await db.recipe.findMany({
+    orderBy: [
       {
-        id: "i-1",
-        title: "Asian Noodles",
-        notes: "Test note",
+        title: "asc",
       },
     ],
-  };
+  });
+  const data: LoaderData = { recipes };
   return json(data);
 };
 

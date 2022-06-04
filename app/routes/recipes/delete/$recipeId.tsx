@@ -2,26 +2,15 @@ import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { Link } from "@remix-run/react";
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap";
+import { db } from "~/utils/db.server";
 
-export const action: ActionFunction = async ({ params, request }) => {
-  console.log(params.recipeId);
-  // const content = form.get("content");
-  // if (typeof name !== "string" || typeof content !== "string") {
-  //   return badRequest({
-  //     formError: `Form not submitted correctly.`,
-  //   });
-  // }
+export const action: ActionFunction = async ({ params }) => {
+  await db.recipe.delete({
+    where: {
+      id: params.recipeId,
+    },
+  });
 
-  // const fieldErrors = {
-  //   name: validateJokeName(name),
-  //   content: validateJokeContent(content),
-  // };
-  // const fields = { name, content };
-  // if (Object.values(fieldErrors).some(Boolean)) {
-  //   return badRequest({ fieldErrors, fields });
-  // }
-
-  // const joke = await db.joke.create({ data: fields });
   return redirect(`/recipes`);
 };
 
