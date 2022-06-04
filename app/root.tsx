@@ -25,7 +25,7 @@ export default function App() {
         <Navbar color="light" expand="md" light>
           <NavbarBrand href="/">Recipes</NavbarBrand>
         </Navbar>
-        <div className="container mt-5">
+        <div className="container mt-3">
           <Outlet />
         </div>
         <Scripts />
