@@ -19,7 +19,7 @@ export default function ModalForm({
         </Form>
       </ModalBody>
       <ModalFooter>
-        <Button type="submit" color="primary" form="recipeForm">
+        <Button type="submit" color="primary" form={formId}>
           Save
         </Button>
         <Link to={cancelRoute}>

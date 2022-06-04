@@ -1,6 +1,8 @@
 import type { ActionFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { useActionData } from "@remix-run/react";
+import { FormGroup, Label } from "reactstrap";
+import ModalForm from "~/components/modalForm";
 import RecipeForm from "~/components/recipeForm";
 import { db } from "~/utils/db.server";
 
@@ -44,12 +46,12 @@ export default function RecipeCreate() {
   let actionData = useActionData<ActionData | undefined>();
 
   return (
-    <RecipeForm
-      formId="newRecipe"
-      defaultValues={{
-        title: actionData?.fields?.title ?? "",
-        notes: actionData?.fields?.notes ?? "",
-      }}
-    />
+    <RecipeForm formId="recipeForm" defaultValues={actionData?.fields ?? {}}>
+      {actionData?.fieldErrors?.content ? (
+        <p className="form-validation-error" role="alert" id="content-error">
+          {actionData?.fieldErrors?.content}
+        </p>
+      ) : null}
+    </RecipeForm>
   );
 }

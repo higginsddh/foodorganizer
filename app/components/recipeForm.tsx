@@ -5,9 +5,11 @@ import ModalForm from "./modalForm";
 export default function RecipeForm({
   formId,
   defaultValues,
+  children,
 }: {
   formId: string;
-  defaultValues: Omit<Recipe, "id">;
+  defaultValues: Partial<Omit<Recipe, "id">>;
+  children?: React.ReactNode;
 }) {
   return (
     <ModalForm formId={formId} cancelRoute="/recipes">
@@ -21,7 +23,7 @@ export default function RecipeForm({
           type="text"
           className="form-control"
           required
-          defaultValue={defaultValues.title}
+          defaultValue={defaultValues?.title ?? ""}
         />
       </FormGroup>
       <FormGroup>
@@ -31,9 +33,10 @@ export default function RecipeForm({
           name="notes"
           type="textarea"
           className="form-control"
-          defaultValue={defaultValues.notes}
+          defaultValue={defaultValues?.notes ?? ""}
         />
       </FormGroup>
+      {children}
     </ModalForm>
   );
 }
