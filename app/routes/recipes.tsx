@@ -1,14 +1,14 @@
 import type { LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Outlet, useLoaderData } from "@remix-run/react";
-import type { SavedRecipe } from "~/models/receipe";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@remix-run/react";
 import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import { db } from "~/utils/db.server";
+import type { Recipe } from "@prisma/client";
 
-type LoaderData = { recipes: Array<SavedRecipe> };
+type LoaderData = { recipes: Array<Recipe> };
 
 export const loader: LoaderFunction = async () => {
   const recipes = await db.recipe.findMany({
@@ -39,12 +39,22 @@ export default function IndexRoute() {
               <div className="d-flex justify-content-between">
                 <div>{r.title}</div>
                 <div>
-                  <FontAwesomeIcon icon={faEdit} id={`${r.id}_Edit`} />
+                  <Link to={`/recipes/edit/${r.id}`}>
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      id={`${r.id}_Edit`}
+                      title="Edit"
+                      titleId={`${r.id}_Edit_Title`}
+                    />
+                  </Link>
+
                   <Link to={`/recipes/delete/${r.id}`}>
                     <FontAwesomeIcon
                       icon={faTrash}
                       className="ms-3"
                       id={`${r.id}_Delete`}
+                      title="Delete"
+                      titleId={`${r.id}_Delete_Title`}
                     />
                   </Link>
                 </div>
