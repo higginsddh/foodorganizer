@@ -5,7 +5,7 @@ import type { SavedRecipe } from "~/models/receipe";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "@remix-run/react";
-import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
 import { db } from "~/utils/db.server";
 
 type LoaderData = { recipes: Array<SavedRecipe> };
@@ -27,6 +27,11 @@ export default function IndexRoute() {
 
   return (
     <>
+      <div className="d-flex justify-content-end mb-3">
+        <Link to="/recipes/new">
+          <Button type="button">Add Recipe</Button>
+        </Link>
+      </div>
       {data.recipes.map((r) => (
         <Card key={r.id} className="mb-3">
           <CardBody>
@@ -34,12 +39,12 @@ export default function IndexRoute() {
               <div className="d-flex justify-content-between">
                 <div>{r.title}</div>
                 <div>
-                  <FontAwesomeIcon icon={faEdit} title="Edit Receipt" />
+                  <FontAwesomeIcon icon={faEdit} id={`${r.id}_Edit`} />
                   <Link to={`/recipes/delete/${r.id}`}>
                     <FontAwesomeIcon
                       icon={faTrash}
-                      title="Delete Receipt"
                       className="ms-3"
+                      id={`${r.id}_Delete`}
                     />
                   </Link>
                 </div>
