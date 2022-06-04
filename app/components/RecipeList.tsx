@@ -1,8 +1,9 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link } from "@remix-run/react";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 import type { SavedRecipe } from "~/models/receipe";
-import IconButton from "./IconButton";
+import IconButton from "./iconButton";
 
 export default function ReceipeList({
   recipes,
@@ -21,14 +22,13 @@ export default function ReceipeList({
                   <IconButton>
                     <FontAwesomeIcon icon={faEdit} title="Edit Receipt" />
                   </IconButton>
-                  <IconButton>
+                  <Link to={`/recipes/delete/${r.id}`}>
                     <FontAwesomeIcon
                       icon={faTrash}
                       title="Delete Receipt"
                       className="ms-3"
-                      // onClick={() => mutation.mutate(r.id)}
                     />
-                  </IconButton>
+                  </Link>
                 </div>
               </div>
             </CardTitle>
