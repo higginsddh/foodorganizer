@@ -1,20 +1,19 @@
-import { Link } from "@remix-run/react";
+import { Navbar, NavbarBrand } from "reactstrap";
+// import AddReceipeButton from "~/components/AddReceipeButton";
+// import ReceipeList from "~/components/RecipeList";
 
 export default function IndexRoute() {
   return (
-    <div className="container">
-      <div className="content">
-        <h1>
-          Remix <span>Jokes!</span>
-        </h1>
-        <nav>
-          <ul>
-            <li>
-              <Link to="jokes">Read Jokes</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
+    <>
+      <Navbar color="light" expand="md" light>
+        <NavbarBrand href="/">Recipes</NavbarBrand>
+      </Navbar>
+      {/* <div className="container mt-5">
+        <div className="d-flex justify-content-end mb-3">
+          <AddReceipeButton />
+        </div>
+        <ReceipeList />
+      </div> */}
+    </>
   );
 }
